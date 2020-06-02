@@ -74,7 +74,7 @@
 
 <div id="imageScrubberInfo">
 <pre>
-<center><b>Image Scrubber edit 2</b></center>
+<center><b>Image Scrubber edit 3</b></center>
 
 This is a tool for anonymizing photographs taken at protests.
 
@@ -206,11 +206,13 @@ function saveImage(){
     var nameWithoutPath = filename.replace(/.*[\\/]([^\\/]+)$/, '$1');
     var nameWithoutExtension = nameWithoutPath.replace(/\.[^.]*$/, '');
 
+    const string = JSON.stringify(blob);
+    const newblob = new Blob([string], {type: 'text/plain'});
     link.download = nameWithoutExtension + '_scrubbed.jpg';
     // link.href = URL.createObjectURL(blob);
     // link.click();
     let reader = new FileReader();
-    reader.readAsDataURL(blob);
+    reader.readAsDataURL(newblob);
     reader.onload = function(){
       // link.setAttribute('href', reader.result);
       // link.setAttribute('target', "_blank");

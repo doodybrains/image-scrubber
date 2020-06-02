@@ -213,7 +213,8 @@ function saveImage(){
     reader.readAsDataURL(blob);
     reader.onload = function(){
       link.setAttribute('href', reader.result);
-      link.click();
+      window.location.href = link.href;
+      // link.click();
     }
   }, 'image/jpeg', 0.8);
 }

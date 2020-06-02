@@ -213,9 +213,9 @@ function saveImage(){
     reader.readAsDataURL(blob);
     reader.onload = function(){
       link.setAttribute('href', reader.result);
-      window.location.href = link.href;
-      
-      // link.click();
+      link.setAttribute('target', "_blank");
+      console.log(reader.result);      
+      link.click();
     }
   }, 'image/jpeg', 0.8);
 }

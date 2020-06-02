@@ -214,6 +214,7 @@ function saveImage(){
     reader.onload = function(){
       link.setAttribute('href', reader.result);
       window.location.href = link.href;
+      
       // link.click();
     }
   }, 'image/jpeg', 0.8);

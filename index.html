@@ -34,20 +34,21 @@
 
 <div id="topBar">
 
-    <div id="drop-zone" class="topBarDiv dropZone">
-            <label for="file-input" class="customFileOpen controlButton">
-                Open image 📂
+    <div id="drop-zone">
+        <div id="openDiv" class="topBarDiv" class="custom-file-open"><center>
+            <label for="file-input" class="custom-file-open"><center>
+                Open image 📂</center>
             </label>
-            <input id="file-input" type="file"/>
+            <input id="file-input" type="file"/></center></div>
     </div>
 
-<a id="saveButton" onclick="saveImage(this)" class="topBarDiv controlButton">Save image 💾</a>
+<a id="saveButton" onclick="saveImage(this)" class="topBarDiv"><center>Save image 💾</center></a>
 
 
-<div id="rotate" class="topBarDiv controlButton">Rotate Image ⤾</div>
+<div id="rotate" class="topBarDiv"><center>Rotate Image ⤾</center></div>
 
 
-<div id="paintBlur" class="topBarDiv" class="customFileOpen"><center>
+<div id="paintBlur" class="topBarDiv" class="custom-file-open"><center>
 <form id="paintForm">
 <input type="radio" id="Paint" name="paintingAction" value="paint">
 <label for="Paint">Paint</label><br>
@@ -206,8 +207,15 @@ function saveImage(){
     var nameWithoutExtension = nameWithoutPath.replace(/\.[^.]*$/, '');
 
     link.download = nameWithoutExtension + '_scrubbed.jpg';
-    link.href = URL.createObjectURL(blob);
-    link.click();
+    // link.href = URL.createObjectURL(blob);
+    // link.click();
+    
+    let reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onload = function(){
+      link.setAttribute('href', reader.result);
+      link.click();
+    }
   }, 'image/jpeg', 0.8);
 }
 
@@ -237,9 +245,9 @@ function onFileChange(e) {
 
             var biggerDimension = Math.max(canvas.width, canvas.height);
 
-            // gotta clean this up later - this 800 value is just adjusting for size but i should make it a variable set at the top
-            brushSize = 50 * (biggerDimension/800);
-            blurAmount = (scale(brushSize, 10, 157, 20, 150));
+            // gotta clean this up later - this canvas.diwth value is just adjusting for size but i should make it a variable in case i wanna change it
+            brushSize = (scale(biggerDimension, 10, 2500, 20, 100)) * canvas.width/800;
+            blurAmount = brushSize/2;
             setCursor();
 
         }
@@ -330,7 +338,7 @@ function handleMouseDown(e) {
 function handleMouseOut(e) {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (isDown != false){
         handleMouseUp(e);
     }

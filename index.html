@@ -212,8 +212,8 @@ function saveImage(){
     let reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onload = function(){
-      link.setAttribute('href', reader.result);
-      link.setAttribute('target', "_blank");
+      // link.setAttribute('href', reader.result);
+      // link.setAttribute('target', "_blank");
       console.log(reader.result);
       // link.click();
     }
